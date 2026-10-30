@@ -1,3 +1,5 @@
+![Banner](banner.png)
+
 # codeintel-Public-Code-Exposure-Checker
 Identifies code snippets and sensitive data (API keys, database credentials, internal IP addresses) accidentally exposed on public websites or repositories. Uses search engine APIs (e.g., Google Dorks) to find exposed code. - Focused on Tools for static code analysis, vulnerability scanning, and code quality assurance
 
