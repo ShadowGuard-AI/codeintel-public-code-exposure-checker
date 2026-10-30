@@ -41,7 +41,10 @@ def search_public_code(search_term):
     #   results = google_search(search_term)
     #   return results
 
-    # Simulate some results for testing purposes
+    # Simulate some results for testing purposes. The search term
+    # changes nothing in this list, so every run analyses the same
+    # five lines; the analysis and saving below are the real parts
+    # of the tool, and the README says the search is simulated.
     simulated_results = [
         f"Example result 1: API_KEY = 'abcdef12345'",
         f"Example result 2: DB_PASSWORD = 'securepassword'",
@@ -81,10 +84,13 @@ def analyze_results(results):
         ip_address_matches = re.findall(IP_ADDRESS_REGEX, result)
         ip_addresses.extend(ip_address_matches)
 
+    # sorted, not just set: set order varies between processes, so
+    # two runs over the same results used to print and save their
+    # findings in different orders, which made diffs useless.
     return {
-        "api_keys": list(set(api_keys)),  # Remove duplicates
-        "db_credentials": list(set(db_credentials)),  # Remove duplicates
-        "ip_addresses": list(set(ip_addresses)),  # Remove duplicates
+        "api_keys": sorted(set(api_keys)),
+        "db_credentials": sorted(set(db_credentials)),
+        "ip_addresses": sorted(set(ip_addresses)),
     }
 
 
@@ -111,8 +117,10 @@ def save_results(results, output_file):
                 f.write(f"- {ip}\n")
 
         logging.info(f"Results saved to {output_file}")
+        return True
     except Exception as e:
         logging.error(f"Error saving results to file: {e}")
+        return False
 
 
 def main():
@@ -142,8 +150,8 @@ def main():
             logging.info(f"Database Credentials: {analysis_results['db_credentials']}")
             logging.info(f"IP Addresses: {analysis_results['ip_addresses']}")
 
-            if args.output:
-                save_results(analysis_results, args.output)
+            if args.output and not save_results(analysis_results, args.output):
+                sys.exit(1)
         else:
             logging.info("No sensitive data exposure found.")
 
