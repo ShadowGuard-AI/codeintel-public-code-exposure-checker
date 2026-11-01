@@ -45,6 +45,9 @@ def search_public_code(search_term):
     # changes nothing in this list, so every run analyses the same
     # five lines; the analysis and saving below are the real parts
     # of the tool, and the README says the search is simulated.
+    # This list is the whole search. Nothing here calls out to a
+    # search engine, so the honest reading of a run is that the
+    # analysis below works and the retrieval half is a stand in.
     simulated_results = [
         f"Example result 1: API_KEY = 'abcdef12345'",
         f"Example result 2: DB_PASSWORD = 'securepassword'",
@@ -141,11 +144,17 @@ def main():
         sys.exit(1)
 
     try:
+        # A run that finds exposure still ends normally. Only a failed
+        # save or an unexpected error exits 1, so a caller watching
+        # the exit code learns nothing about what was found.
         results = search_public_code(search_term)
         analysis_results = analyze_results(results)
 
         if analysis_results["api_keys"] or analysis_results["db_credentials"] or analysis_results["ip_addresses"]:
             logging.info("Potential sensitive data exposure found!")
+            # I log the found values themselves here. That is the opposite
+            # of how my secret scanners mask their finds, and a log file
+            # from this run should be treated as holding those values.
             logging.info(f"API Keys: {analysis_results['api_keys']}")
             logging.info(f"Database Credentials: {analysis_results['db_credentials']}")
             logging.info(f"IP Addresses: {analysis_results['ip_addresses']}")
