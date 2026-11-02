@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="620" viewBox="0 0 1600 620" role="img" aria-label="Carvers yard in three depths: harbour light shifting far away, a lantern flame flickering and a mallet lifted and set down in the shed, a shaving curl dropping near">
+<rect width="1600" height="620" fill="#dfe2d2"/>
+<rect x="0" y="60" width="1600" height="150" fill="#a8c4c6"/>
+<g stroke="#c2d6d6" stroke-width="3"><line x1="0" y1="100" x2="1600" y2="106"><animate attributeName="opacity" values="0.9;0.4;0.9" dur="16s" repeatCount="indefinite"/></line><line x1="0" y1="150" x2="1600" y2="156"/></g>
+<rect x="0" y="36" width="1600" height="26" fill="#e8e2cc"><animate attributeName="opacity" values="1;0.72;1" dur="20s" repeatCount="indefinite"/></rect>
+<rect x="140" y="210" width="1320" height="330" fill="#e6d6ac" stroke="#4a3421" stroke-width="4"/>
+<g stroke="#cdb488" stroke-width="3"><line x1="320" y1="210" x2="320" y2="540"/><line x1="560" y1="210" x2="560" y2="540"/><line x1="1040" y1="210" x2="1040" y2="540"/><line x1="1280" y1="210" x2="1280" y2="540"/></g>
+<g><line x1="800" y1="212" x2="800" y2="246" stroke="#4a3421" stroke-width="4"/><rect x="782" y="246" width="36" height="52" fill="none" stroke="#4a3421" stroke-width="3"/>
+<ellipse cx="800" cy="278" rx="7" ry="13" fill="#e8a83c"><animate attributeName="ry" values="13;9;14;10;13" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;0;1;1" dur="14s" repeatCount="indefinite"/></ellipse></g>
+<g fill="#274b63"><polygon points="742,300 776,326 788,420 824,540 776,540 756,430 728,540 682,540 700,420 694,330"/><ellipse cx="728" cy="252" rx="38" ry="42"/><polygon points="770,346 852,262 872,276 796,378"/></g>
+<line x1="766" y1="350" x2="780" y2="388" stroke="#a63a2a" stroke-width="4"/>
+<g fill="#b48e58" stroke="#6e5228" stroke-width="2"><polygon points="330,540 348,470 392,452 452,458 478,492 462,540"/><ellipse cx="322" cy="440" rx="34" ry="38"/></g>
+<g fill="#b48e58" stroke="#6e5228" stroke-width="2"><polygon points="1150,540 1164,462 1200,436 1232,470 1228,540"/><polygon points="1164,470 1064,428 1076,462 1158,496"/><polygon points="1228,470 1320,436 1308,472 1234,496"/></g>
+<rect x="480" y="486" width="420" height="18" fill="#927040" stroke="#4a3421" stroke-width="3"/>
+<g><animateTransform attributeName="transform" type="translate" values="0 0;0 -34;0 -34;0 0;0 0" dur="13s" repeatCount="indefinite"/><rect x="600" y="450" width="26" height="34" fill="#6e5228" stroke="#4a3421"/><line x1="613" y1="484" x2="613" y2="500" stroke="#6e5228" stroke-width="5"/></g>
+<g fill="#efe4c0" stroke="#c9b98c"><path d="M 700 540 q 10 -8 20 0 q -10 6 -20 0"/><path d="M 900 556 q 10 -8 20 0 q -10 6 -20 0"/></g>
+<circle cx="872" cy="506" r="6" fill="#efe4c0" stroke="#c9b98c"><animate attributeName="cy" values="506;506;566;566" dur="13s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;1;1;1" dur="13s" repeatCount="indefinite"/></circle>
+</svg>

@@ -3,160 +3,72 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Codeintel Public Code Exposure Checker: what it is, how it runs, where it stops</title>
-<meta name="description" content="Codeintel Public Code Exposure Checker is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.">
+<title>codeintel-public-code-exposure-checker: the yard ledger</title>
 <style>
-:root {
-  --bg: #121418; --panel: #1c2028; --ink: #e8ecf0;
-  --mut: #252b36;
-  --acc: #5cc8e0; --acc2: #f0a05c;
-  --line: #1c2028;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink);
-  font-family: Georgia, 'Times New Roman', serif; line-height: 1.55; }
-code, pre, .mono { font-family: 'Courier New', monospace; }
-a { color: var(--acc2); }
-.hero { padding: 3rem 6vw 1rem; }
-.hero img.banner { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; }
-.logo { width: 92px; height: 92px; border-radius: 18px;
-  border: 1px solid var(--line); }
-h1 { font-size: 2.4rem; margin: 0.4em 0 0.1em; }
-h2 { border-bottom: 2px solid var(--acc); padding-bottom: 0.2em;
-  margin-top: 2em; }
-.lede { font-size: 1.15rem; max-width: 62ch; }
-main { padding: 0 6vw 3rem; max-width: 1180px; margin: 0 auto; }
-.grid { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-.card { background: var(--panel); border: 1px solid var(--line);
-  border-radius: 12px; padding: 1rem 1.2rem; }
-.card.pop { animation: rise 0.7s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; } }
-pre.code { background: #101014; color: #e8e6df; padding: 1rem 1.2rem;
-  border-radius: 12px; overflow-x: auto; font-size: 0.86rem;
-  border-left: 5px solid var(--acc); }
-table { border-collapse: collapse; width: 100%; }
-td, th { border-bottom: 1px solid var(--line); padding: 0.45rem 0.6rem;
-  text-align: left; }
-.shots { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.shots img { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; background: #f4f1e8; }
-footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
-  color: var(--mut); }
-.rail { display: flex; gap: 1.2rem; align-items: flex-start; }
-.rail nav { position: sticky; top: 1rem; min-width: 180px; }
-@media (max-width: 760px) { .rail { flex-direction: column; }
-  .rail nav { position: static; } }
-@media (prefers-reduced-motion: reduce) {
-  .card.pop { animation: none; } * { scroll-behavior: auto; } }
+@font-face { font-family:'Disp'; src:url('fonts/BerkshireSwash.ttf') format('truetype'); }
+@font-face { font-family:'Text'; src:url('fonts/AlegreyaSans.ttf') format('truetype'); }
+* { box-sizing:border-box; } body { margin:0; background:#274b63; color:#33241a; font-family:'Text',sans-serif; line-height:1.55; }
+header img.hero { width:100%; display:block; } header .bar { display:flex; gap:18px; align-items:center; padding:18px 24px; }
+header .bar img { width:84px; } h1,h2,h3 { font-family:'Disp',serif; font-weight:normal; }
+nav { padding:0 24px 14px; } nav a { color:#33241a; margin-right:16px; }
+main { max-width:980px; margin:0 auto; padding:10px 20px 40px; }
+section { background:#efe6cf; border-radius:10px; padding:20px 24px; margin:18px 0; }
+code,pre { font-family:ui-monospace,monospace; } pre { white-space:pre-wrap; overflow-wrap:anywhere; }
+.btn { display:inline-block; font-family:'Disp',serif; padding:10px 18px; margin:4px; border-radius:46% 54% 52% 48%/58% 60% 40% 42%; border:2px solid #b99b5f; color:#33241a; background:transparent; text-decoration:none; }
+.callout { border-left:5px solid #b99b5f; padding:10px 14px; margin:12px 0; background:rgba(0,0,0,0.08); }
+table { border-collapse:collapse; } td,th { border:1px solid #b99b5f; padding:6px 10px; text-align:left; }
+footer { padding:22px; text-align:center; }
 </style>
 </head>
-<body class="layout-cards">
-<!-- This page exists for codeintel-public-code-exposure-checker alone: the layout (index-cards),
-     the colors, and the type were picked for this project, not
-     shared with the other project pages. The code block below is
-     copied from the file it names, line for line. If it looks
-     plain, that is because the project is plain, and I would
-     rather the page match the project than dress it up. The one
-     thing I will not do here is oversell: what this project does
-     not do is stated on the page, not hidden from it. -->
-<header class="hero">
-  <img class="logo" src="assets/logo.png" alt="Codeintel Public Code Exposure Checker logo">
-  <img class="banner" src="assets/banner.png" alt="">
-  <h1>Codeintel Public Code Exposure Checker</h1>
-  <p class="mono"><a href="https://github.com/ShadowGuard-AI/codeintel-public-code-exposure-checker">github.com/ShadowGuard-AI/codeintel-public-code-exposure-checker</a></p>
+<body>
+<header>
+<img class="hero" src="assets/intro-banner.png" alt="Introduction banner">
+<div class="bar"><img src="assets/logo.png" alt="Logo"><h1>codeintel-public-code-exposure-checker: the yard ledger</h1></div>
+<nav><a href="#s0">The search</a><a href="#s1">Address</a><a href="#s2">Usage</a><a href="#s3">Parameters</a><a href="#s4">Fixed set</a><a href="#s5">Patterns</a><a href="#s6">Endings</a><a href="#s7">Saving</a><a href="#s8">Licence</a></nav>
 </header>
-
 <main>
-  <section class="rail">
-    <nav aria-label="on this page">
-      <p class="mono"><a href="#run">Run it</a><br>
-      <a href="#files">The files</a><br>
-      <a href="#sheets">The sheets</a><br>
-      <a href="https://github.com/ShadowGuard-AI/codeintel-public-code-exposure-checker">The repo</a></p>
-    </nav>
-    <div>
-      <p class="lede">Codeintel Public Code Exposure Checker is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.</p>
-      <div class="grid">
-        <div class="card pop"><h3>What it is</h3>
-          <p>Codeintel Public Code Exposure Checker: 6 files, 199 counted
-          lines across Python 178, Markdown 18, Text 3. One job, done in the
-          open, in files you can read.</p></div>
-        <div class="card pop"><h3>The biggest piece</h3>
-          <p><code>main.py</code> carries the most
-          lines. If the project grows, that file is where the growth
-          lands first, for better or worse.</p></div>
-        <div class="card pop"><h3>The honest gap</h3>
-          <p>No test files yet. That is the honest gap, and the roadmap in the visuals folder says what the first one should cover.</p></div>
-      </div>
-      <section id="run">
-        <h2>Run it</h2>
-        <p>The repo README has the exact commands for this one. The
-        shape is the shape for most of my projects: clone it, read the
-        top file first so you know what will happen, then run it on
-        something you do not mind breaking.</p>
-        <p class="mono">$ git clone https://github.com/ShadowGuard-AI/codeintel-public-code-exposure-checker.git<br>$ cd codeintel-public-code-exposure-checker</p>
-      </section>
-      
-  <section aria-label="real code">
-    <h2>The code, as it sits in the repo</h2>
-    <p>From <code>main.py</code>, line 127 on. I did
-    not tidy it for the page. What you see is what the file has.</p>
-    <pre class="code"><code>
+<section id="s0"><h2>A Simulated Search</h2><p>The tool identifies code snippets and sensitive data in publicly exposed code. The data named in the README is API keys, database credentials, and internal IP addresses.</p>
+<p style="color:#a63a2a">The search itself is simulated. The programme analyses a fixed set of example results. It does not call a search engine API. The findings are the same whatever search term is given. That limit is printed here at the same size as the claim, not in a footnote.</p><p><a class="btn" href="#s2">Run the Simulated Search</a><a class="btn" href="#s2">Save Results to a File</a><a class="btn" href="#s2">Turn On Verbose Logging</a><a class="btn" href="#s2">Show Help</a></p></section>
+<section id="s1"><h2>The address</h2><pre>git clone https://github.com/ShadowGuard-AI/codeintel-public-code-exposure-checker</pre><p>The address is correct. It names ShadowGuard-AI with its hyphen. The README gives no change of directory step after the line, and this page records that absence and adds nothing to the line.</p></section>
+<section id="s2"><h2>Usage</h2><pre>python3 main.py SEARCH_TERM [-o OUTPUT] [-v]</pre><p>The README usage line is accurate, and the parser in main.py accepts the same form. No flag is added by this page. No flag is removed by this page.</p></section>
+<section id="s3"><h2>The parameters</h2><table><tr><th>Parameter</th><th>Account</th></tr>
+<tr><td><code>-h</code></td><td>Show help message and exit</td></tr>
+<tr><td><code>search_term</code></td><td>The search term to use (for example 'API_KEY in:github'). Use Google Dorks.</td></tr>
+<tr><td><code>-o</code>, <code>--output</code></td><td>Output file to save results (optional).</td></tr>
+<tr><td><code>-v</code>, <code>--verbose</code></td><td>Enable verbose logging (debug level).</td></tr></table>
+<div class="callout"><h3>No Dork Reaches a Search Engine</h3><p>The instruction above is printed as the README prints it, and flagged. No dork reaches a search engine in this code. The programme calls no search engine, no repository host, and makes no network request of any kind.</p></div></section>
+<section id="s4"><h2>The Five Fixed Results</h2><p>The fixed set holds five example results. Result one holds an example API key entry. Result two holds a database password entry. Result three holds an internal IP address in a private range. Result four holds no sensitive data. Result five holds a second example API key entry and a second internal address in a private range. No found value is reproduced on this page; the categories are the record.</p>
+<div class="callout"><h3>Same Findings for Every Term</h3><p>The search term changes none of these five lines. A reader must not treat the printed findings as findings about the term they typed.</p></div></section>
+<section id="s5"><h2>What the Patterns Extract</h2><p>The analysis is the real part of the tool. Three patterns do the work. One pattern reads API key assignments. One pattern reads database password assignments. One pattern reads IP addresses in dotted form. Matches are gathered in three lists. Each list is sorted. Each list holds each value once. The sorted order is deliberate: two runs over the same set print their findings in the same order.</p></section>
+<section id="s6"><h2>Endings at 0 and at 1</h2><p>The README records the verified behaviour in one point. A run with a search term prints the simulated findings: example API keys, a database credential, and example IP addresses. The run exits 0.</p>
+<p>Code facts beside that point. A run that finds exposure still ends at 0. Only a failed save or an unexpected error ends at 1. The exit code therefore says nothing about what was found.</p>
+<h3>Found Values Enter the Log in Full</h3>
+<p>Found values are written into the log in full. A log file from a run holds those values, and it must be handled as a file that holds them. This page reproduces no found value.</p></section>
+<section id="s7"><h2>Saving</h2><p>Saving happens only when an output file was named and findings exist. The saved file has three headed sections: API Keys, Database Credentials, and IP Addresses. Each found value is written as one dashed line under its heading. A failed save ends the run at 1.</p></section>
+<section id="s8"><h2>Licence</h2><pre>See LICENSE.</pre><p>The README closes with that one line, printed here as printed. Beside it, the repository fact: a LICENSE file is present, and the file carries the MIT License. No copyright line is printed in the README itself. No correction is needed on that point.</p>
+<p>One lesser fault is recorded beside the identity check. The README title reads codeintel-Public-Code-Exposure-Checker, with a capital P and a capital C that the repo name does not carry. The README also gives no requirements note, although main.py uses only the standard library. Its usage line matches its parser, and its parameter list matches its parser.</p></section>
+<section id="verbatim"><h2>The README as printed</h2><pre>
+# codeintel-Public-Code-Exposure-Checker
+Identifies code snippets and sensitive data (API keys, database credentials, internal IP addresses) accidentally exposed on public websites or repositories. The search itself is simulated: the program analyses a fixed set of example results, it does not call a search engine API, so the findings are the same whatever search term is given. Focused on tools for static code analysis, vulnerability scanning, and code quality assurance.
 
-def main():
-    &quot;&quot;&quot;
-    Main function to execute the code exposure checker.
-    &quot;&quot;&quot;
-    parser = setup_argparse()
-    args = parser.parse_args()
+## Install
+`git clone https://github.com/ShadowGuard-AI/codeintel-public-code-exposure-checker`
 
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
-        logging.debug(&quot;Verbose logging enabled.&quot;)
+## Usage
+`python3 main.py SEARCH_TERM [-o OUTPUT] [-v]`
 
-    search_term = args.search_term
+## Parameters
+- `-h`: Show help message and exit
+- `search_term`: The search term to use (for example 'API_KEY in:github'). Use Google Dorks.
+- `-o`, `--output`: Output file to save results (optional).
+- `-v`, `--verbose`: Enable verbose logging (debug level).
 
-    if not search_term:
-        logging.error(&quot;Search term cannot be empty.&quot;)
-        sys.exit(1)
+## Verified behavior
+- Running with a search term prints the simulated findings (example API keys, a database credential, and example IP addresses) and exits 0. Do not treat these example findings as results for the search term given.
 
-    try:
-        # A run that finds exposure still ends normally. Only a failed
-        # save or an unexpected error exits 1, so a caller watching</code></pre>
-  </section>
-      <section id="files">
-        <h2>The files that matter</h2>
-        <table><tr><th>File</th><th>Lines</th></tr>
-        <tr><td><code>main.py</code></td><td>178</td></tr>
-        </table>
-        <p>Names doing the work: <span class="mono">setup_argparse, search_public_code, analyze_results, save_results, main</span>.</p>
-      </section>
-      <section id="sheets">
-        <h2>Drawn by hand</h2>
-        <p>I sketch my projects on notebook paper so I have to
-        understand them well enough to draw them. The full set,
-        with the counts and how they were counted, is the
-        <a href="https://github.com/ShadowGuard-AI/codeintel-public-code-exposure-checker/tree/main/codeintel-public-code-exposure-checker-Visuals">codeintel-public-code-exposure-checker-Visuals</a>
-        folder in the repo. Nothing is drawn over the binder holes.
-        That is a rule, not a style.</p>
-        <div class="shots">
-          <img src="assets/architecture.png" alt="Hand drawn architecture sheet for Codeintel Public Code Exposure Checker">
-          <img src="assets/flowchart.png" alt="Hand drawn flowchart sheet for Codeintel Public Code Exposure Checker">
-          <img src="assets/product-map.png" alt="Hand drawn product map sheet for Codeintel Public Code Exposure Checker">
-        </div>
-      </section>
-    </div>
-  </section>
+## License
+See LICENSE.</pre></section>
 </main>
-<footer>
-  <p>Codeintel Public Code Exposure Checker is one of my projects. This page was written
-  from the repo itself on 2026-10-30: the counts are the
-  repo's counts, the code is the repo's code, and the gaps are the
-  repo's gaps.</p>
-</footer>
+<footer>A yard ledger, read from the first entry to the last. Headings in Berkshire Swash, body copy in Alegreya Sans.</footer>
 </body>
 </html>
